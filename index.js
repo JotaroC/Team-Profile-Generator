@@ -130,7 +130,7 @@ const questions = {
             name: "email",
             message: "What is the intern's email address?",
             validate: (value) => {
-                if (emailValidator.validate(value)) {
+                if (value) {
                     return true
                 } else { return 'Please enter a valid email address.' }
             },
@@ -162,3 +162,80 @@ const selectMemberType = [
         choices: ["Manager", "Engineer", "Intern"],
     }
 ];
+
+function addNewMember() {
+    inquirer.prompt(selectMemberType)
+        .then(answer => {
+            if (answer.memberType === "Manager") {
+                if (canAddManager) {
+                    inquirer.prompt(questions.Manager)
+                        .then(answer => {
+                            //save employee info
+                            const manager = new Manager
+                                (
+                                    answer.name,
+                                    answer.id,
+                                    answer.email,
+                                    answer.officeNumber
+                                );
+
+                            //add info to team array if manager doesn't exist
+                            team.push(manager);
+                            canAddManager = false;
+                            if (answer.addNew === "yes") {
+                                addNewMember();
+                            } else {
+                                generate();
+                            }
+                        });
+                } else {
+                    //only 1 manager
+                    console.log("There is a manager already!")
+                    addNewMember();
+                }
+
+
+            } else if (answer.memberType === "Engineer") {
+                inquirer.prompt(questions.Engineer)
+                    .then(answer => {
+                        //save ee info
+                        const engineer = new Engineer
+                            (
+                                answer.name,
+                                answer.id,
+                                answer.email,
+                                answer.github
+                            );
+                        //add info to team array
+                        team.push(engineer);
+                        if (answer.addNew === "yes") {
+                            addNewMember();
+                        } else {
+                            generate();
+                        };
+                    });
+
+            } else if (answer.memberType === "Intern") {
+                inquirer.prompt(questions.Intern)
+                    .then(answer => {
+                        //save ee info
+                        const intern = new Intern
+                            (
+                                answer.name,
+                                answer.id,
+                                answer.email,
+                                answer.school
+                            );
+                        //add info to team array
+                        team.push(intern);
+                        if (answer.addNew === "yes") {
+                            addNewMember();
+                        } else {
+                            generate();
+                        };
+                    });
+            };
+        });
+};
+
+addNewMember();

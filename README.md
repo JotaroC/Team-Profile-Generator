@@ -23,7 +23,7 @@ A Node.js command-line application that takes in information about employees on 
 - After answer all the questions, a html file will be generated
 
 The following image is the sceenshot of application's appearance:
-- [sample sample HTML file](./dist/team.html)
+- [sample HTML file](./dist/team.html)
 ![screen shot of the website](./dist/screenShot.png)
 
 - [Video Demo](https://user-images.githubusercontent.com/97209241/153976017-1c14d7df-b580-4823-869e-e9efbf4eb4f0.mp4)

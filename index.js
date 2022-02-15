@@ -3,8 +3,9 @@ const fs = require("fs");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
+const path = require("path");
 
-const OUTPUT_DIR = path.resolve(__dirname, "output");
+const OUTPUT_DIR = path.resolve(__dirname, "dist");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
@@ -41,7 +42,7 @@ const questions = {
             name: "email",
             message: "What is the manager's email address?",
             validate: (value) => {
-                if (emailValidator.validate(value)) {
+                if (value) {
                     return true
                 } else { return 'Please enter a valid email address.' }
             },
@@ -90,7 +91,7 @@ const questions = {
             name: "email",
             message: "What is the engineer's email address?",
             validate: (value) => {
-                if (emailValidator.validate(value)) {
+                if (value){
                     return true
                 } else { return 'Please enter a valid email address.' }
             },

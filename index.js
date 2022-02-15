@@ -4,6 +4,15 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 
+const OUTPUT_DIR = path.resolve(__dirname, "output");
+const outputPath = path.join(OUTPUT_DIR, "team.html");
+
+const render = require("./lib/htmlRenderer");
+const Employee = require("./lib/Employee");
+
+let team = [];
+let canAddManager = true;
+
 // Asking information of development team members, and to create objects for each team member
 const questions = {
     Manager: [
@@ -239,3 +248,8 @@ function addNewMember() {
 };
 
 addNewMember();
+
+function generate() {
+    fs.writeFileSync(outputPath, render(team), "utf-8");
+    process.exit(0);
+}
